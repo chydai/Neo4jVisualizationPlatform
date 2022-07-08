@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<title>癌症分子标志物数据和药物重定位可视化平台</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link href="/static/css/style.css" rel="stylesheet"/>
+   <script src="/static/js/jquery-1.11.2.min.js"></script>
+   <script src="/static/js/cytoscape.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.css">
+   <script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/2.2.0/jquery.qtip.js"></script>
+   <script src="/static/js/cytoscape-qtip.js"></script>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>癌症分子标志物数据和药物重定位可视化平台</h1>
+</div>
+
+<div class="navbar">
+    <br><br><br>
+<!--  <a href="#">链接</a>-->
+<!--  <a href="#">链接</a>-->
+<!--  <a href="#">链接</a>-->
+<!--  <a href="#" class="right">链接</a>-->
+</div>
+
+<div class="row">
+  <div class="side">
+
+     <br>
+     <!--显示基因表单-->
+     <div>
+        <h3 style="color:#555555">选择癌症类型</h3>
+        <select id="gene" onChange="hallmarkChange()">
+           <option selected="selected">--OPTION--</option>
+           <option value="blca">BLCA</option>
+           <option value="brca">BRCA</option>
+           <option value="coad">COAD</option>
+           <option value="esca">ESCA</option>
+           <option value="kich">KICH</option>
+           <option value="kirc">KIRC</option>
+           <option value="kirp">KIRP</option>
+           <option value="lihc">LIHC</option>
+           <option value="luad">LUAD</option>
+           <option value="lusc">LUSC</option>
+           <option value="paad">PAAD</option>
+           <option value="prad">PRAD</option>
+           <option value="read">READ</option>
+           <option value="skcm">SKCM</option>
+           <option value="stad">STAD</option>
+           <option value="thca">THCA</option>
+           <option value="thym">THYM</option>
+           <option value="ucec">UCEC</option>
+        </select><br><br>
+        <button id="showgene">SHOW</button>
+     </div>
+
+     <br><br>
+     <!--显示hallmark表单-->
+     <div>
+        <h3 style="color:#555555">选择 HALLMARK 类型</h3>
+        <select id="hallmark">
+           <option selected="selected">------------------OPTION-----------------</option>
+<!--           <option value="a">UV_RESPONSE_DN</option>-->
+<!--           <option value="b">MYOGENESIS</option>-->
+<!--           <option value="c">EPITHELIAL_MESENCHYMAL_TRANSITION</option>-->
+<!--           <option value="d">TNFA_SIGNALING_VIA_NFKB</option>-->
+<!--           <option value="e">APICAL_JUNCTION</option>-->
+<!--           <option value="f">INTERFERON_ALPHA_RESPONSE</option>-->
+<!--           <option value="g">MYC_TARGETS_V2</option>-->
+<!--           <option value="h">SPERMATOGENESIS</option>-->
+<!--           <option value="i">INTERFERON_GAMMA_RESPONSE</option>-->
+<!--           <option value="j">UNFOLDED_PROTEIN_RESPONSE</option>-->
+<!--           <option value="k">E2F_TARGETS</option>-->
+<!--           <option value="l">G2M_CHECKPOINT</option>-->
+<!--           <option value="m">MITOTIC_SPINDLE</option>-->
+<!--           <option value="n">MTORC1_SIGNALING</option>-->
+<!--           <option value="o">OXIDATIVE_PHOSPHORYLATION</option>-->
+<!--           <option value="p">GLYCOLYSIS</option>-->
+<!--           <option value="q">DNA_REPAIR</option>-->
+<!--           <option value="r">MYC_TARGETS_V1</option>-->
+<!--           <option value="s">HYPOXIA</option>-->
+<!--           <option value="t">UV_RESPONSE_UP</option>-->
+<!--           <option value="u">CHOLESTEROL_HOMEOSTASIS</option>-->
+        </select><br><br>
+        <button id="showhallmark">SHOW</button>
+     </div>
+
+     <br><br>
+     <!--获取子网罗图-->
+     <div>
+        <h3 style="color:#555555">输入代查询的网络子图</h3>
+        <input type="text" name="startnote" id="startnote" placeholder="请输入起始基因节点" /><br>
+        <input type="text" name="endnote" id="endnote" placeholder="请输入终止基因节点" /><br><br>
+        <button id="subweb">SHOW</button>
+     </div>
+
+     <br><br>
+     <!--显示KEY NODES-->
+     <div>
+        <h3 style="color:#555555">选择是否突出 KEY NODES</h3>
+<!--        <input type="checkbox" id="boxid" onclick="setAllNo()" />全选/全不选-->
+        <input type="checkbox" name="keynode" id="keynode" />KEY NODES GENE
+<!--        <button id="showkeynodes">SHOW KEY NODES</button>-->
+<!--        <input type="checkbox" name="keynode" id="keynode2" />KEY NODES GENE-->
+<!--        <input type="button" value="全选" onclick="setAll()" />-->
+<!--        <input type="button" value="全不选" onclick="setNo()" />-->
+<!--        <input type="button" value="反选" onclick="setOthers()" />-->
+     </div>
+
+     <br><br>
+     <!--显示重定位药物路径-->
+     <div>
+        <h3 style="color:#555555">显示重定位药物作用路径</h3>
+        <input type="checkbox" id="drug" />DRUG
+     </div><br><br>
+
+  </div>
+
+  <div class="main">
+     <h2 style="color:#555555">基因节点网络图</h2>
+     <br>
+
+     <!--引用code.js中cytoscape绘图-->
+     <div id="cy"><script src="/static/js/code.js"></script></div>
+
+  </div>
+
+</div>
+
+<div class="footer">
+    <br><br><br><br><br>
+    <p class="footword">
+        College of Computer Science, Sichuan University <br>
+        Chengdu, Sichuan, China, 610065 <br><br><br><br>
+        Developed By <br>
+    </p>
+    <p style="font-family:cursive; color:#fff;">Chunyang Dai</p>
+
+    <br><br><br><br><br>
+</div>
+
+</body>
+
+</html>

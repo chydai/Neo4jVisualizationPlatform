@@ -1,0 +1,49 @@
+https://www.vcells.net/macrophage/
+
+flask
+neo4j-driver
+
+MATCH (m)-[r]->(n) RETURN m,n,r
+MATCH (n) DETACH DELETE n
+MATCH (n) RETURN n
+
+BLCA、BRCA、COAD、ESCA、KICH、KIRC、KIRP、LIHC、LUAD、LUSC、PAAD、PRAD、READ、SKCM、STAD、THCA、THYM、UCEC
+
+MATCH (m)-[r:blca{drug:"1"}]->(n) RETURN m,n,r
+
+MATCH (m:kirc{name:"E2F2"}),(n:kirc{name:"CDC45"}), p=shortestpath((m)-[r*..10]->(n)) RETURN m,n,r
+MATCH (m:kirc)-[r]->(n:kirc) WHERE m.name = 'E2F2' AND n.name = 'CDC45' RETURN m,n,r
+
+{
+  "start": {
+
+  },
+  "end": {
+
+  },
+  "segments": [
+    {
+      "start": {
+
+      },
+      "relationship": {
+
+      },
+      "end": {
+
+      }
+    },
+    {
+      "start": {
+
+      },
+      "relationship": {
+
+      },
+      "end": {
+
+      }
+    }
+  ],
+  "length": 2.0
+}
